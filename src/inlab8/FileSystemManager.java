@@ -12,6 +12,7 @@ public class FileSystemManager {
 
     public FileSystemManager() {
         tree = new FileTree();
+        test();
     }
 
     public void run() {
@@ -71,5 +72,44 @@ public class FileSystemManager {
         }
 
         return tree.moveDown(file);
+    }
+    
+    public void test() {
+        tree.insert("School");
+        tree.moveDown("School");
+        tree.insert("CSCI111");
+        tree.insert("CSCI132");
+        tree.moveDown("CSCI132");        
+        tree.insert("Inlabs");
+        tree.moveUp();
+        tree.moveUp();
+        tree.insert("Skiing");
+        tree.moveDown("Skiing");
+        tree.insert("Pictures");
+        tree.insert("Trips");
+        tree.moveDown("Trips");
+        tree.insert("Summer");
+        tree.moveDown("Summer");
+        tree.insert("Tetons");
+        tree.insert("AK");
+        tree.moveUp();
+        tree.insert("Winter");
+        tree.moveUp();
+        tree.insert("Gear");
+        tree.moveUp();
+        tree.insert("Work");
+        tree.moveDown("Work");
+        tree.insert("Reviews");
+        tree.insert("Paystubs");
+        tree.moveDown("Paystubs");
+        tree.insert("2014");
+        tree.insert("2015");
+        tree.moveUp();
+        tree.moveUp();
+        tree.insert("Personal");
+        tree.moveDown("Personal");
+        tree.insert("Resume");
+        tree.insert("Taxes");
+        tree.goHome();               
     }
 }

@@ -26,14 +26,35 @@ public class FileTree {
     }
 
     public boolean moveDown(String file) {
-        ArrayList<Node> children = current.getChildren();
-        for (Node c : children) {
+        Node currentReset = current;
+        String locationReset = location;        
+        while (file.indexOf("\\", 0) != -1) {
+            boolean exists = false;
+            int endIndex = file.indexOf("\\", 0);
+            String subFile = file.substring(0, endIndex);
+            for (Node c : current.getChildren()) {
+                if (subFile.equals(c.getName())) {
+                    current = c;
+                    location += "\\" + current.getName();
+                    exists = true;
+                    file = file.substring(endIndex + 1);
+                }
+            }
+            if (!exists) {
+                current = currentReset;
+                location = locationReset;
+                return false;
+            }
+        }
+        for (Node c : current.getChildren()) {
             if (file.equals(c.getName())) {
                 current = c;
                 location += "\\" + current.getName();
                 return true;
             }
         }
+        current = currentReset;
+        location = locationReset;
         return false;
     }
 
@@ -53,7 +74,7 @@ public class FileTree {
     public String getChildren() {
         String files = new String();
         ArrayList<Node> children = current.getChildren();
-        if (children != null) {    
+        if (children != null) {
             for (Node c : children) {
                 files += c.getName() + " ";
             }
@@ -82,5 +103,32 @@ public class FileTree {
             }
         }
         return false;
+    }
+
+    public String getSubTree() {
+        return getSubTree(current, 0);
+    }
+
+    public String getSubTree(Node node, int depth) {
+        String output = "";
+        if (depth == 0) {
+            output += node.getName() + "\n";
+        } else {
+            output += repeat("    ", depth) + node.getName() + "\n";
+        }
+
+        for (Node c : node.getChildren()) {
+            output += getSubTree(c, depth + 1);
+        }
+
+        return output;
+    }
+
+    public String repeat(String s, int times) {
+        if (times == 0) {
+            return "";
+        } else {
+            return s + repeat(s, times - 1);
+        }
     }
 }
