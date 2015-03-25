@@ -111,11 +111,7 @@ public class FileTree {
 
     public String getSubTree(Node node, int depth) {
         String output = "";
-        if (depth == 0) {
-            output += node.getName() + "\n";
-        } else {
-            output += repeat("    ", depth) + node.getName() + "\n";
-        }
+        output += repeat("    ", depth) + node.getName() + "\n";
 
         for (Node c : node.getChildren()) {
             output += getSubTree(c, depth + 1);
